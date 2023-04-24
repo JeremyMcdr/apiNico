@@ -1,5 +1,7 @@
 const express = require('express');
 const User = require('./models/user');
+const Entreprise = require('./models/Entreprise');
+const Door = require('./models/Door')
 const cors = require('cors');
 
 const app = express();
@@ -18,13 +20,14 @@ function verifyApiKey(req, res, next) {
     if (apiKey !== 'testicule') {
         return res.status(401).json({ error: 'Invalid API key' });
     }
-
     next();
 }
 
 // Utiliser le middleware pour protéger les routes
 app.use('/api/users', verifyApiKey);
+app.use('/api/entreprise', verifyApiKey);
 
+//Affichage des utilisateurs
 app.get('/api/users', async (req, res) => {
     try {
         const users = await User.findAll();
@@ -34,6 +37,15 @@ app.get('/api/users', async (req, res) => {
     }
 });
 
+//Affichage des entreprise
+app.get('/api/entreprises', async (req, res) => {
+    try {
+        const entreprises = await Entreprise.findAll();
+        res.json(entreprises);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 app.post('/api/users', async (req, res) => {
     try {
         const newUser = await User.create(req.body);
@@ -61,6 +73,22 @@ app.delete('/api/users/:userId', verifyApiKey, async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
+app.get('/api/entreprise/:idEntreprise/doors', async (req, res) => {
+    const idEntreprise = req.params.idEntreprise;
+
+    try {
+        const doors = await Door.findAll({
+            where: { idEntreprise }
+        });
+        res.json(doors);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
 
 
 app.listen(port, () => {
