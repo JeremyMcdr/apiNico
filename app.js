@@ -1,5 +1,5 @@
 const express = require('express');
-const User = require('./models/user');
+const User = require('./models/User');
 const Entreprise = require('./models/Entreprise');
 const Door = require('./models/Door')
 const cors = require('cors');
