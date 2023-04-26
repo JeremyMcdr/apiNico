@@ -3,6 +3,7 @@ const User = require('./models/user');
 const Entreprise = require('./models/Entreprise');
 const Door = require('./models/Door')
 const cors = require('cors');
+const Formulaire = require('./models/VerificationPorte')
 
 const app = express();
 const port = 3000;
@@ -42,6 +43,15 @@ app.get('/api/entreprises', async (req, res) => {
     try {
         const entreprises = await Entreprise.findAll();
         res.json(entreprises);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.get('/api/formulaires', async (req, res) => {
+    try {
+        const formulaire = await Formulaire.findAll();
+        res.json(formulaire);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
