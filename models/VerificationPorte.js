@@ -1,8 +1,7 @@
 const { DataTypes, ForeignKeyConstraintError} = require('sequelize');
 const sequelize = require('../database');
-const Entreprise = require('./Entreprise')
 
-const Door = sequelize.define('Door', {
+const Formulaire = sequelize.define('Formulaire', {
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -45,8 +44,7 @@ const Door = sequelize.define('Door', {
         allowNull: false,
     },
 }, {
-    tableName: 'portes', // Précisez explicitement le nom de la table
+    tableName: 'VerificationPorte', // Précisez explicitement le nom de la table
     timestamps: false // désactiver les champs createdAt et updatedAt
 });
-Door.belongsTo(Entreprise, { foreignKey: 'idEntreprise' });
-module.exports = Door;
+module.exports = Formulaire;
