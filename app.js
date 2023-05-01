@@ -19,25 +19,34 @@ const StructureForm = require('./models/tableFormulaire/StructureForm.js')
 const TablierForm = require('./models/tableFormulaire/TablierForm.js')
 
 
+const express = require('express');
+// ... (autres importations)
+
 const app = express();
 const port = 3000;
-app.use(cors());
 
 const corsOptions = {
     origin: ['http://localhost:4200', 'http://localhost:4500'],
     optionsSuccessStatus: 200
 };
 
-
-const allowedOrigins = ['http://localhost:4200', 'http://your-tower-domain.com'];
+const allowedOrigins = ['http://localhost:4200', 'http://localhost:4500'];
 
 app.use((req, res, next) => {
     const origin = req.headers.origin;
     if (allowedOrigins.includes(origin)) {
         res.header('Access-Control-Allow-Origin', origin);
     }
-});
+    // Ajoutez les autres en-têtes CORS nécessaires ici
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
 
+    if (req.method === 'OPTIONS') {
+        res.sendStatus(200);
+    } else {
+        next();
+    }
+});
 
 
 app.use(express.json());
