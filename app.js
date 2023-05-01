@@ -18,8 +18,6 @@ const SignalisationForm = require('./models/tableFormulaire/SignalisationForm.js
 const StructureForm = require('./models/tableFormulaire/StructureForm.js')
 const TablierForm = require('./models/tableFormulaire/TablierForm.js')
 
-
-const express = require('express');
 // ... (autres importations)
 
 const app = express();
