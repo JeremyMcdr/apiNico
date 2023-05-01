@@ -1,5 +1,16 @@
 const { DataTypes, ForeignKeyConstraintError} = require('sequelize');
 const sequelize = require('../database');
+//Importation de l'ensemble de mes 'sous' base de données pour la création de mes formulaires
+const DispositifArretForm = require('./tableFormulaire/DispositifArretForm.js')
+const DispositifSecuriteForm = require('./tableFormulaire/DispositifSecuriteForm.js')
+const EquipementElectroniqueForm = require('./tableFormulaire/EquipementElectriqueForm.js')
+const ManoeuvreDepannageForm = require('./tableFormulaire/ManoeuvreDepannageForm.js')
+const ManoeuvreSecoursForm = require('./tableFormulaire/ManoeuvreSecoursForm.js')
+const MecanismeForm = require('./tableFormulaire/MecanismeForm.js')
+const OrganeForm = require('./tableFormulaire/OrganeForm.js')
+const SignalisationForm = require('./tableFormulaire/SignalisationForm.js')
+const StructureForm = require('./tableFormulaire/StructureForm.js')
+const TablierForm = require('./tableFormulaire/TablierForm.js')
 
 const Formulaire = sequelize.define('Formulaire', {
     id: {
@@ -7,44 +18,58 @@ const Formulaire = sequelize.define('Formulaire', {
         allowNull: false,
         primaryKey: true
     },
-    structure: {
-        type: DataTypes.STRING,
+    dispositifArret_ID: {
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
-    organe: {
-        type: DataTypes.STRING,
+    dispositifSecurite_ID: {
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
-    tablier: {
-        type: DataTypes.STRING,
+    equipementElectrique_ID: {
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
-    mecanisme: {
-        type: DataTypes.STRING,
+    manoeuvreDepannage_ID: {
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
-    dispositifArret: {
-        type: DataTypes.STRING,
+    manoeuvreSecours_ID: {
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
-    dispositifSecurite: {
-        type: DataTypes.DATE,
+    mecanisme_ID: {
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
-    manoeuvreDepanage: {
-        type: DataTypes.STRING,
+    organe_ID: {
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
-    signalisation: {
-        type: DataTypes.STRING,
+    signalisation_ID: {
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
-    equipement: {
-        type: DataTypes.STRING,
+    structure_ID: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    tablier_ID: {
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
 }, {
     tableName: 'VerificationPorte', // Précisez explicitement le nom de la table
     timestamps: false // désactiver les champs createdAt et updatedAt
 });
+Formulaire.belongsTo(DispositifArretForm, { foreignKey: 'dispositifArret_ID' });
+Formulaire.belongsTo(DispositifSecuriteForm, { foreignKey: 'dispositifSecurite_ID' });
+Formulaire.belongsTo(EquipementElectroniqueForm, { foreignKey: 'equipementElectrique_ID' });
+Formulaire.belongsTo(ManoeuvreDepannageForm, { foreignKey: 'manoeuvreDepannage_ID' });
+Formulaire.belongsTo(ManoeuvreSecoursForm, { foreignKey: 'manoeuvreSecours_ID' });
+Formulaire.belongsTo(MecanismeForm, { foreignKey: 'mecanisme_ID' });
+Formulaire.belongsTo(OrganeForm, { foreignKey: 'organe_ID' });
+Formulaire.belongsTo(SignalisationForm, { foreignKey: 'signalisation_ID' });
+Formulaire.belongsTo(StructureForm, { foreignKey: 'structure_ID' });
+Formulaire.belongsTo(TablierForm, { foreignKey: 'tablier_ID' });
 module.exports = Formulaire;

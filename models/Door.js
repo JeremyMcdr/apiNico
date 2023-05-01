@@ -1,4 +1,4 @@
-const { DataTypes, ForeignKeyConstraintError} = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 const Entreprise = require('./Entreprise')
 
