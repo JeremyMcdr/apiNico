@@ -5,6 +5,8 @@ const Door = require('./models/Door')
 const cors = require('cors');
 const ApiKeys = require('./models/apiKeys')
 const Formulaire = require('./models/VerificationPorte')
+const sequelize = require('./database');
+const FormData = require('./models/form-data.model');
 
 //Importation de l'ensemble de mes 'sous' base de données pour la création de mes formulaires
 const DispositifArretForm = require('./models/tableFormulaire/DispositifArretForm.js')
@@ -24,6 +26,23 @@ const app = express();
 const port = 3000;
 app.use(cors())
 app.use(express.json());
+
+/*Ceci sont des tests*/
+app.post('/api/form-data', async (req, res) => {
+    try {
+        const formData = await FormData.create(req.body);
+        res.status(201).json(formData);
+    } catch (error) {
+        res.status(400).json({ message: 'Erreur lors de l\'enregistrement des données' });
+    }
+});
+
+sequelize.sync()
+    .then(() => {
+        app.listen(port, () => {
+            console.log(`Serveur Express écoutant sur le port ${port}`);
+        });
+    });
 
 // Fonction pour vérifier l'API Key
 async function verifyApiKey(req, res, next) {
