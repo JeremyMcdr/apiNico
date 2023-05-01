@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
-const FormData = sequelize.define('FormData', {
+const FormData = sequelize.define('Formulaire_data', {
     structure: {
         type: DataTypes.JSON,
     },
@@ -11,6 +11,11 @@ const FormData = sequelize.define('FormData', {
     securite: {
         type: DataTypes.JSON,
     },
-});
+
+},
+    {
+        tableName: 'formulaire_data', // Précisez explicitement le nom de la table
+    }
+    );
 
 module.exports = FormData;

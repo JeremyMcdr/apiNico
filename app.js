@@ -37,13 +37,6 @@ app.post('/api/form-data', async (req, res) => {
     }
 });
 
-sequelize.sync()
-    .then(() => {
-        app.listen(port, () => {
-            console.log(`Serveur Express écoutant sur le port ${port}`);
-        });
-    });
-
 // Fonction pour vérifier l'API Key
 async function verifyApiKey(req, res, next) {
     let userId = req.headers['x-user-id'];
