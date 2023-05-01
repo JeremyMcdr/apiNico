@@ -49,7 +49,7 @@ async function verifyApiKey(req, res, next) {
             return res.status(401).json({ error: 'API key not found for user' });
         }
 
-        if (apiKeyObj.key !== apiKey || 'testicule') {
+        if (apiKeyObj.key !== apiKey) {
             console.log(apiKeyObj.key)
             return res.status(401).json({ error: 'Invalid API key' });
         }
