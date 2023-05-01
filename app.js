@@ -22,6 +22,24 @@ const TablierForm = require('./models/tableFormulaire/TablierForm.js')
 const app = express();
 const port = 3000;
 app.use(cors());
+
+const corsOptions = {
+    origin: ['http://localhost:4200', 'http://localhost:4500'],
+    optionsSuccessStatus: 200
+};
+
+
+const allowedOrigins = ['http://localhost:4200', 'http://your-tower-domain.com'];
+
+app.use((req, res, next) => {
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.header('Access-Control-Allow-Origin', origin);
+    }
+});
+
+
+
 app.use(express.json());
 
 // Fonction pour vérifier l'API Key
