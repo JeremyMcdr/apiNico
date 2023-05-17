@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
-const Users2 = sequelize.define('Users2', {
+const Users = sequelize.define('User', {
     firstName: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -16,7 +16,8 @@ const Users2 = sequelize.define('Users2', {
     },
 
 }, {
-    tableName: 'users2', // Précisez explicitement le nom de la table
+    tableName: 'user', // Précisez explicitement le nom de la table
+    timestamps: false // désactiver les champs createdAt et updatedAt
 });
 
-module.exports = Users2;
+module.exports = Users;
