@@ -15,9 +15,9 @@ router.post('/', async (req, res) => {
         // Comparaison du mot de passe envoyé avec celui stocké
 
         if (password === user.password) {
-            res.json({ success: "1" });
+            res.json({ success: 1 });
         } else {
-            res.json({ success: "0" });
+            res.json({ success: 0 });
         }
     } catch (err) {
         res.status(500).json({ error: err.message });
