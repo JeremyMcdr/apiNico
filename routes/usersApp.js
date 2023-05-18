@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const UserApp = require('../models/UsersApp');
+const UserApp = require('../models/usersApp');
 const { verifyApiKey } = require('../middlewares');
 
 router.use(verifyApiKey);
