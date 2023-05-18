@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const UserApp = require('../models/usersApp');
-const bcrypt = require('bcrypt');
 
 router.post('/', async (req, res) => {
     const { firstName, password } = req.body;
@@ -14,7 +13,6 @@ router.post('/', async (req, res) => {
         }
 
         // Comparaison du mot de passe envoyé avec celui stocké
-        const passwordMatch = await bcrypt.compare(password, user.password);
 
         if (password === user.password) {
             res.json({ success: true });
