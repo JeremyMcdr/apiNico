@@ -19,7 +19,7 @@ const User = sequelize.define('User', {
         allowNull: false,
     }
 }, {
-    tableName: 'usersApp', // Nom de la table : usersApp
+    tableName: 'usersapp', // Nom de la table : usersApp
     timestamps: false // désactiver les champs createdAt et updatedAt
 });
 
