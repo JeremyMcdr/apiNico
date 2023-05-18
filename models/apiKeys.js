@@ -3,7 +3,7 @@ const sequelize = require('../database');
 const User = require('./User')
 
 
-const apiKeys = sequelize.define('apiKeys', {
+const apiKeys = sequelize.define('apikeys', {
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -18,7 +18,7 @@ const apiKeys = sequelize.define('apiKeys', {
         allowNull: false,
     },
 }, {
-    tableName: 'apiKeys', // Précisez explicitement le nom de la table
+    tableName: 'apikeys', // Précisez explicitement le nom de la table
     timestamps: false // désactiver les champs createdAt et updatedAt
 })
 apiKeys.belongsTo(User, {foreignKey:'userId'});
