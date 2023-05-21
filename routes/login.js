@@ -15,6 +15,9 @@ router.post('/', async (req, res) => {
         if (password === user.password) {
             res.json({
                 success: 1,
+                firstName: user.firstName,
+                lastName:user.lastName,
+                email:user.email
             });
         } else {
             res.json({ success: 0 });
