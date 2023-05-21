@@ -14,6 +14,10 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     role: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -22,6 +26,7 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING,
         allowNull: false,
     }
+
 }, {
     tableName: 'usersapp', // Nom de la table : usersApp
     timestamps: false // désactiver les champs createdAt et updatedAt
