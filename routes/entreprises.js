@@ -9,32 +9,32 @@ router.use(verifyApiKey);
 router.get('/', async (req, res) => {
     // ...le code pour obtenir toutes les entreprises
     try {
-        const entreprises = await Entreprise.findAll();
-        res.json(entreprises);
+        const companies = await Entreprise.findAll();
+        res.json(companies);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
 
 router.get('/:id', async (req, res) => {
-    const entreprise = await Entreprise.findByPk(req.params.id);
-    res.json(entreprise);
+    const company = await Entreprise.findByPk(req.params.id);
+    res.json(company);
 });
 
 router.post('/', async (req, res) => {
-    const entreprise = await Entreprise.create(req.body);
-    res.json(entreprise);
+    const company = await Entreprise.create(req.body);
+    res.json(company);
 });
 
 router.put('/:id', async (req, res) => {
-    const entreprise = await Entreprise.findByPk(req.params.id);
+    const company = await Entreprise.findByPk(req.params.id);
 
-    if (!entreprise) {
+    if (!company) {
         res.status(404).json({ error: 'Aucune entreprise trouvée avec cet ID' });
         return;
     }
 
-    await entreprise.update(req.body);
+    await company.update(req.body);
     res.json({ message: 'Entreprise mise à jour avec succès' });
 });
 

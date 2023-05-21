@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/users', userRoutes);
-app.use('/api/entreprises', entrepriseRoutes); // nouvellement ajouté
+app.use('/api/companies', entrepriseRoutes); // nouvellement ajouté
 app.use('/api/usersApp', usersAppRoutes);
 app.use('/api/login', loginRoutes);
 
