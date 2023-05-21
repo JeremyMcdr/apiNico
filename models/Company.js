@@ -1,23 +1,23 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
-const Entreprise = sequelize.define('entreprise', {
+const Company = sequelize.define('company', {
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
     },
-    nom: {
+    name: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    localisation: {
+    location: {
         type: DataTypes.STRING,
         allowNull: false,
     },
 }, {
-    tableName: 'entreprise', // Précisez explicitement le nom de la table
+    tableName: 'company', // Précisez explicitement le nom de la table
     timestamps: false // désactiver les champs createdAt et updatedAt
 });
 
-module.exports = Entreprise;
+module.exports = Company;

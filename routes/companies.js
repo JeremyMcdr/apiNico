@@ -1,7 +1,7 @@
-//routes/entreprises.js
+//routes/companies.js
 const express = require('express');
 const router = express.Router();
-const Entreprise = require('../models/Entreprise');
+const Entreprise = require('../models/Company');
 const { verifyApiKey } = require('../middlewares');
 
 router.use(verifyApiKey);
