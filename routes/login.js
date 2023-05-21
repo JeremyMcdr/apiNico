@@ -8,7 +8,7 @@ router.post('/', async (req, res) => {
     try {
         const user = await UserApp.findOne({ where: { firstName: firstName } });
         if (!user) {
-            res.json({ success: false });
+            res.json({ success: 0 });
             return;
         }
 
