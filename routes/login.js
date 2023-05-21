@@ -8,7 +8,7 @@ router.post('/', async (req, res) => {
     try {
         const user = await UserApp.findOne({ where: { firstName: firstName } });
         if (!user) {
-            res.status(404).json({ error: 'User not found' });
+            res.json({ success: false });
             return;
         }
 
