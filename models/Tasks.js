@@ -10,7 +10,7 @@ const Tasks = sequelize.define('tasks', {
     },
     title: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     description: {
         type: DataTypes.TEXT,
@@ -18,7 +18,7 @@ const Tasks = sequelize.define('tasks', {
     },
     userId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
     }},
 {
     timestamps: false // désactiver les champs createdAt et updatedAt
