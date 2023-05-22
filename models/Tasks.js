@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 const User = require('./User'); // Importer le modèle User si nécessaire
 
-const Tasks = sequelize.define('Tasks', {
+const Tasks = sequelize.define('tasks', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
