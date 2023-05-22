@@ -78,6 +78,24 @@ router.put('/tasks/:taskId', async (req, res) => {
     }
 });
 
+router.get('/tasks/:taskId', async (req, res) => {
+    const { taskId } = req.params;
+
+    try {
+        const task = await Task.findByPk(taskId);
+
+        if (!task) {
+            res.status(404).json({ error: 'Task not found' });
+            return;
+        }
+
+        res.json(task);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
 
 
 module.exports = router;
