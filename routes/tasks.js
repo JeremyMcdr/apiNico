@@ -99,7 +99,7 @@ router.get('/:taskId', async (req, res) => {
     }
 });
 
-router.put('/tasks/:taskId', async (req, res) => {
+router.put('/:taskId', async (req, res) => {
     const { taskId } = req.params;
     const { title, description } = req.body;
 
