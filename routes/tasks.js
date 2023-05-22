@@ -24,6 +24,8 @@ router.get('/:userId/tasks', async (req, res) => {
     }
 });
 
+
+
 router.post('/:userId/tasks', async (req, res) => {
     const { userId } = req.params;
     const { title, description } = req.body;
@@ -97,6 +99,30 @@ router.get('/:taskId', async (req, res) => {
     }
 });
 
+router.put('/tasks/:taskId', async (req, res) => {
+    const { taskId } = req.params;
+    const { title, description } = req.body;
+
+    try {
+        const task = await Task.findByPk(taskId);
+
+        if (!task) {
+            res.status(404).json({ error: 'Task not found' });
+            return;
+        }
+
+        // Mettez à jour les propriétés de la tâche
+        task.title = title;
+        task.description = description;
+
+        // Sauvegardez les modifications dans la base de données
+        await task.save();
+
+        res.status(200).json({ message: 'Task updated successfully' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 
 
 
