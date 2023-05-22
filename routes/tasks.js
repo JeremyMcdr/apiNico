@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const { verifyApiKey } = require('../middlewares');
-const Tasks = require('../models/Tasks')
+const Task = require('../models/Tasks'); // Correction de l'importation
 
 router.use(verifyApiKey);
 router.get('/:userId/tasks', async (req, res) => {
@@ -16,10 +16,12 @@ router.get('/:userId/tasks', async (req, res) => {
             return;
         }
 
-        const tasks = await Tasks.findAll({ where: { userId: userId } });
+        const tasks = await Task.findAll({ where: { userId: userId } }); // Correction du nom du modèle
 
         res.json(tasks);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
+
+module.exports = router;
