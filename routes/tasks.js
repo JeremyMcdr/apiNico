@@ -6,7 +6,7 @@ const Task = require('../models/Tasks'); // Correction de l'importation
 
 router.use(verifyApiKey);
 router.get('/:userId/tasks', async (req, res) => {
-    const { userId } = req.params;
+    const userId = req.params.id;
 
     try {
         const user = await User.findByPk(userId);
