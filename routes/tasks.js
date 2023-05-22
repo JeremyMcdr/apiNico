@@ -11,10 +11,10 @@ router.get('/:userId/tasks', async (req, res) => {
     try {
         const user = await User.findByPk(userId);
 
-        if (!user) {
+        /*if (!user) {
             res.status(404).json({ error: 'User not found' });
             return;
-        }
+        }*/
 
         const tasks = await Task.findAll({ where: { userId: userId } }); // Correction du nom du modèle
 
