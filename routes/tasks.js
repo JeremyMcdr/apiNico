@@ -24,8 +24,8 @@ router.get('/:userId/tasks', async (req, res) => {
     }
 });
 
-router.post('/:userId/tasks', async (req, res) => {
-    const { userId } = req.params;
+router.post('/tasks', async (req, res) => {
+    const { userId, ...taskData } = req.body;
 
     try {
         const user = await User.findByPk(userId);
@@ -35,7 +35,7 @@ router.post('/:userId/tasks', async (req, res) => {
             return;
         }
 
-        const newTask = await Task.create({ ...req.body, userId: userId });
+        const newTask = await Task.create({ ...taskData, userId: userId });
 
         res.status(201).json(newTask);
     } catch (err) {
