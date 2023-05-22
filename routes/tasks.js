@@ -42,7 +42,7 @@ router.post('/:userId/tasks', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
-router.delete('/tasks/:taskId', async (req, res) => {
+router.delete('/:taskId', async (req, res) => {
     const { taskId } = req.params;
 
     try {
@@ -58,6 +58,7 @@ router.delete('/tasks/:taskId', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
 
 router.put('/tasks/:taskId', async (req, res) => {
     const { taskId } = req.params;
