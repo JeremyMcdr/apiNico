@@ -20,16 +20,10 @@ const Tasks = sequelize.define('tasks', {
         type: DataTypes.INTEGER,
         allowNull: false,
         field: 'userId', // Le nom de la colonne dans la base de données
-    },
-    createdAt: {
-        type: DataTypes.DATE,
-        field: 'created_at', // Le nom de la colonne dans la base de données
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        field: 'updated_at', // Le nom de la colonne dans la base de données
-    },
-});
+    }},
+{
+    timestamps: false // désactiver les champs createdAt et updatedAt
+    });
 
 // Définir les associations entre User et Task
 Tasks.belongsTo(User); // Une tâche appartient à un utilisateur (relation Many-to-One)
