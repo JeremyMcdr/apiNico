@@ -19,7 +19,7 @@ const Tasks = sequelize.define('tasks', {
     userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        field: 'idUser', // Le nom de la colonne dans la base de données
+        field: 'userId', // Le nom de la colonne dans la base de données
     },
     createdAt: {
         type: DataTypes.DATE,
