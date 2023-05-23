@@ -22,8 +22,16 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const company = await Entreprise.create(req.body);
-    res.json(company);
+    const { name, location } = req.body;
+    try
+    {
+        const company = await Entreprise.create(name, location);
+
+        res.status(201).json(company);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+
 });
 
 router.put('/:id', async (req, res) => {
