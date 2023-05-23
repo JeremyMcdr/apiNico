@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
 
         res.status(201).json(company);
     } catch (err) {
-        res.status(500).json(name, location);
+        res.status(500).json({ error: err.message });
     }
 
 });
