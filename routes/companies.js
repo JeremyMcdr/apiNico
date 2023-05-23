@@ -44,7 +44,7 @@ router.put('/:id', async (req, res) => {
     res.json({ message: 'Entreprise mise à jour avec succès' });
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:companyId', async (req, res) => {
     const { companyId } = req.params;
 
     try {
