@@ -9,11 +9,11 @@ const Company = sequelize.define('company', {
     },
     name: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
     },
     location: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
     },
 }, {
     tableName: 'company', // Précisez explicitement le nom de la table
