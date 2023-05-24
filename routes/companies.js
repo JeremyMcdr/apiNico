@@ -1,15 +1,16 @@
 //routes/companies.js
 const express = require('express');
 const router = express.Router();
-const Entreprise = require('../models/Company');
+const Company = require('../models/Company');
 const { verifyApiKey } = require('../middlewares');
+const Task = require("../models/Tasks");
 
 router.use(verifyApiKey);
 
 router.get('/', async (req, res) => {
     // ...le code pour obtenir toutes les entreprises
     try {
-        const companies = await Entreprise.findAll();
+        const companies = await Company.findAll();
         res.json(companies);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -17,17 +18,22 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-    const company = await Entreprise.findByPk(req.params.id);
+    const company = await Company.findByPk(req.params.id);
     res.json(company);
 });
 
 router.post('/', async (req, res) => {
-    const company = await Entreprise.create(req.body);
-    res.json(company);
+    const { name, location } = req.body;
+    try {
+        const company = await Company.create({ name, location });
+        res.status(201).json(company);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 router.put('/:id', async (req, res) => {
-    const company = await Entreprise.findByPk(req.params.id);
+    const company = await Company.findByPk(req.params.id);
 
     if (!company) {
         res.status(404).json({ error: 'Aucune entreprise trouvée avec cet ID' });
@@ -38,5 +44,21 @@ router.put('/:id', async (req, res) => {
     res.json({ message: 'Entreprise mise à jour avec succès' });
 });
 
+router.delete('/:companyId', async (req, res) => {
+    const { companyId } = req.params;
+
+    try {
+        const deletedCompanyCount = await Company.destroy({ where: { id: companyId } });
+
+        if (deletedCompanyCount === 0) {
+            res.status(404).json({ error: 'Company not found' });
+            return;
+        }
+
+        res.status(200).json({ message: 'Company deleted successfully' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 
 module.exports = router;
