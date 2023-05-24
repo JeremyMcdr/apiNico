@@ -28,7 +28,7 @@ router.get('/:userId/tasks', async (req, res) => {
 
 router.post('/:userId/tasks', async (req, res) => {
     const { userId } = req.params;
-    const { title, description } = req.body;
+    const { title, description,idCompany } = req.body;
 
     try {
         const user = await User.findByPk(userId);
@@ -38,7 +38,7 @@ router.post('/:userId/tasks', async (req, res) => {
             return;
         }
 
-        const newTask = await Task.create({ title, description, userId });
+        const newTask = await Task.create({ title, description, userId,idCompany });
 
         res.status(201).json(newTask);
     } catch (err) {
