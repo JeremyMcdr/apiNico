@@ -19,6 +19,10 @@ const Tasks = sequelize.define('tasks', {
     userId: {
         type: DataTypes.INTEGER,
         allowNull: true,
+    },
+    companyId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
     }},
 {
     timestamps: false // désactiver les champs createdAt et updatedAt
