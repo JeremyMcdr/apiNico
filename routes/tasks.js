@@ -73,8 +73,9 @@ router.delete('/:taskId', async (req, res) => {
     }
 });
 
-router.put('/tasks/:taskId', async (req, res) => {
+router.put('/:taskId', async (req, res) => {
     const { taskId } = req.params;
+    const { title, description, startDate, endDate } = req.body;
 
     try {
         const task = await Task.findByPk(taskId);
@@ -84,7 +85,14 @@ router.put('/tasks/:taskId', async (req, res) => {
             return;
         }
 
-        await task.update(req.body);
+        // Mettre à jour les propriétés de la tâche
+        task.title = title;
+        task.description = description;
+        task.startDate = new Date(startDate); // Convertir la date en objet JavaScript Date
+        task.endDate = new Date(endDate); // Convertir la date en objet JavaScript Date
+
+        // Sauvegarder les modifications dans la base de données
+        await task.save();
 
         res.status(200).json({ message: 'Task updated successfully' });
     } catch (err) {
