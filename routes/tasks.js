@@ -16,21 +16,9 @@ router.get('/:userId/tasks', async (req, res) => {
             return;
         }
 
-        const tasks = await Task.findAll({ where: { userId: userId } });
+        const tasks = await Task.findAll({ where: { userId: userId } }); // Correction du nom du modèle
 
-        // Convertir les dates au format ISO 8601 en objets JavaScript Date
-        const tasksWithConvertedDates = tasks.map(task => {
-            const convertedStartDate = task.startDate ? new Date(task.startDate) : null;
-            const convertedEndDate = task.endDate ? new Date(task.endDate) : null;
-
-            return {
-                ...task,
-                startDate: convertedStartDate,
-                endDate: convertedEndDate
-            };
-        });
-
-        res.json(tasksWithConvertedDates);
+        res.json(tasks);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -38,10 +26,9 @@ router.get('/:userId/tasks', async (req, res) => {
 
 
 
-
 router.post('/:userId/tasks', async (req, res) => {
     const { userId } = req.params;
-    const { title, description, companyId, startDate, endDate } = req.body;
+    const { title, description,companyId } = req.body;
 
     try {
         const user = await User.findByPk(userId);
@@ -51,18 +38,7 @@ router.post('/:userId/tasks', async (req, res) => {
             return;
         }
 
-        // Convertir les dates au format ISO 8601 en objets JavaScript Date
-        const convertedStartDate = startDate ? new Date(startDate) : null;
-        const convertedEndDate = endDate ? new Date(endDate) : null;
-
-        const newTask = await Task.create({
-            title,
-            description,
-            userId,
-            companyId,
-            startDate: convertedStartDate,
-            endDate: convertedEndDate
-        });
+        const newTask = await Task.create({ title, description, userId,companyId });
 
         res.status(201).json(newTask);
     } catch (err) {
