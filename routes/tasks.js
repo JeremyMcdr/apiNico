@@ -2,10 +2,9 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const { verifyApiKey } = require('../middlewares');
-const Task = require('../models/Tasks');
+const Task = require('../models/Tasks'); // Correction de l'importation
 
 router.use(verifyApiKey);
-
 router.get('/:userId/tasks', async (req, res) => {
     const { userId } = req.params;
 
@@ -20,13 +19,25 @@ router.get('/:userId/tasks', async (req, res) => {
         const tasks = await Task.findAll({ where: { userId: userId } });
 
         // Convertir les dates au format ISO 8601 en objets JavaScript Date
-        const tasksWithConvertedDates = tasks.map(task => convertDatesInTask(task));
+        const tasksWithConvertedDates = tasks.map(task => {
+            const convertedStartDate = task.startDate ? new Date(task.startDate) : null;
+            const convertedEndDate = task.endDate ? new Date(task.endDate) : null;
+
+            return {
+                ...task,
+                startDate: convertedStartDate,
+                endDate: convertedEndDate
+            };
+        });
 
         res.json(tasksWithConvertedDates);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
+
+
+
 
 router.post('/:userId/tasks', async (req, res) => {
     const { userId } = req.params;
@@ -53,12 +64,11 @@ router.post('/:userId/tasks', async (req, res) => {
             endDate: convertedEndDate
         });
 
-        res.status(201).json(convertDatesInTask(newTask));
+        res.status(201).json(newTask);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
-
 router.delete('/:taskId', async (req, res) => {
     const { taskId } = req.params;
 
@@ -75,6 +85,7 @@ router.delete('/:taskId', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
 
 router.put('/tasks/:taskId', async (req, res) => {
     const { taskId } = req.params;
@@ -106,7 +117,7 @@ router.get('/:taskId', async (req, res) => {
             return;
         }
 
-        res.json(convertDatesInTask(task));
+        res.json(task);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -114,7 +125,7 @@ router.get('/:taskId', async (req, res) => {
 
 router.put('/:taskId', async (req, res) => {
     const { taskId } = req.params;
-    const { title, description, startDate, endDate } = req.body;
+    const { title, description } = req.body;
 
     try {
         const task = await Task.findByPk(taskId);
@@ -124,17 +135,11 @@ router.put('/:taskId', async (req, res) => {
             return;
         }
 
-        // Convertir les dates au format ISO 8601 en objets JavaScript Date
-        const convertedStartDate = startDate ? new Date(startDate) : null;
-        const convertedEndDate = endDate ? new Date(endDate) : null;
-
-        // Mettre à jour les propriétés de la tâche
+        // Mettez à jour les propriétés de la tâche
         task.title = title;
         task.description = description;
-        task.startDate = convertedStartDate;
-        task.endDate = convertedEndDate;
 
-        // Sauvegarder les modifications dans la base de données
+        // Sauvegardez les modifications dans la base de données
         await task.save();
 
         res.status(200).json({ message: 'Task updated successfully' });
@@ -143,16 +148,6 @@ router.put('/:taskId', async (req, res) => {
     }
 });
 
-// Fonction utilitaire pour convertir les dates dans une tâche
-function convertDatesInTask(task) {
-    const convertedStartDate = task.startDate ? new Date(task.startDate) : null;
-    const convertedEndDate = task.endDate ? new Date(task.endDate) : null;
 
-    return {
-        ...task,
-        startDate: convertedStartDate,
-        endDate: convertedEndDate
-    };
-}
 
 module.exports = router;
