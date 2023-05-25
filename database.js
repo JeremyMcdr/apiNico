@@ -6,12 +6,10 @@ const sequelize = new Sequelize('jeremymcdr_doormonitor', '286599', '123456789az
 });
 
 // Changement temporariare de la base de donnée
-/*
 
-const sequelize = new Sequelize('nicoApplication', 'root', '', {
+/*const sequelize = new Sequelize('nicoApplication', 'root', '', {
     host: 'localhost',
     dialect: 'mysql',
-});
-*/
+});*/
 
 module.exports = sequelize;
