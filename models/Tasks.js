@@ -23,7 +23,16 @@ const Tasks = sequelize.define('tasks', {
     companyId: {
         type: DataTypes.INTEGER,
         allowNull: true,
-    }},
+    },
+    startDate: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        },
+    endDate: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        },
+    },
 {
     timestamps: false // désactiver les champs createdAt et updatedAt
     });
