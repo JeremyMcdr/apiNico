@@ -24,6 +24,15 @@ router.get('/:userId/tasks', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+router.get('/', async (req, res) => {
+    // ...le code pour obtenir tous les utilisateurs
+    try {
+        const tasks = await Task.findAll();
+        res.json(tasks);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 
 router.post('/:userId/tasks', async (req, res) => {
     const { userId } = req.params;
