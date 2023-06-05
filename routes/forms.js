@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Form = require('../models/Form');
+const FormField = require('../models/FormField')
 const { verifyApiKey } = require('../middlewares');
 
 router.use(verifyApiKey);
@@ -23,5 +24,25 @@ router.get('/:taskId', async (req, res) => {
     });
     res.json(forms);
 });
+
+router.get('/:id', async (req, res) => {
+    const form = await Form.findOne({
+        where: {
+            id: req.params.id,
+        },
+        include: [{
+            model: FormField,
+            as: 'fields',
+            required: false
+        }],
+    });
+    if (form) {
+        res.json(form);
+    } else {
+        res.status(404).json({error: "Formulaire non trouvé"});
+    }
+});
+
+
 
 module.exports = router;
